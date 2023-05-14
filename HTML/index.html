@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Bootstrap 5 Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
+    <!-- Boxicons CSS -->
+    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet" />
+
+
+</head>
+<style>
+    .logo-name {
+        color: #333;
+        font-size: 1.4rem;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    .search-icon {
+        color: #4a98f7;
+        font-size: 1.6rem;
+        cursor: pointer;
+    }
+
+    .search-box {
+        position: absolute;
+        right: 7.8rem;
+        top: 0.5rem;
+        height: 3.3rem;
+        max-width: 35rem;
+        width: 100%;
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.5s linear;
+    }
+
+    .openSearch .search-box {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .search-box .search-icon {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        left: 1rem;
+        color: #4a98f7;
+        transform: translateY(-50%);
+    }
+
+    .search-box-input {
+        height: 100%;
+        width: 100%;
+        border: none;
+        outline: none;
+        border-radius: 1rem;
+        background-color: #f8f8f8;
+        padding: 0 3.1rem;
+    }
+
+    .nav-ul {
+        list-style: none;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+
+        display: flex;
+        align-items: center;
+
+    }
+
+    .nav-li {
+        float: left;
+    }
+
+
+    .nav-a {
+        display: block;
+        color: black;
+        text-align: center;
+        text-decoration: none;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        color: #707070;
+        font-weight: 400;
+
+        display: flex;
+        align-items: center;
+    }
+
+    nav .icon {
+        margin-right: 0px;
+        font-size: 1.3rem;
+        color: #707070;
+    }
+
+    .nav-a:hover {
+        background-color: #4070f4;
+    }
+
+    .nav-a:hover .icon,
+    .nav-a:hover {
+        color: #fff;
+
+    }
+
+    @media screen and (max-width: 950px) {
+        .search-box {
+            max-width: 35rem;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        .search-box-input {
+            background-color: #fff;
+        }
+
+        .sp1 {
+            display: none;
+        }
+
+        .nav-a .icon {
+            margin-right: 0;
+
+        }
+
+
+        .search-box {
+            top: calc(100% + 0.62rem);
+            max-width: calc(100% - 1.25rem);
+            right: 50%;
+            transform: translateX(50%);
+            box-shadow: 0 0.125rem 0.62rem rgba(0, 0, 0, 0.1);
+        }
+
+    }
+
+
+
+
+    /* =========== */
+    .sidebar {
+
+        width: 15.5rem;
+        padding: 0.62rem;
+        background-color: #fff;
+        box-shadow: 0 0.25rem 0.1rem rgba(0, 0, 0, 0.1);
+        transition: all 0.8s ease;
+        border: none;
+    }
+
+    .sidebar-ul {
+        margin: 0;
+        padding: 0;
+
+    }
+
+    .sidebar-content {
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 0.7rem;
+    }
+
+    .sidebar-li {
+        list-style: none;
+    }
+
+    .sidebar-a {
+        display: flex;
+        align-items: center;
+        margin: 0.125rem 0;
+        padding: 0.6rem;
+        border-radius: 0.5rem;
+        text-decoration: none;
+        font-size: 1rem;
+        color: #707070;
+        font-weight: 600;
+    }
+
+    .sidebar-a:hover {
+        background-color: #4070f4;
+    }
+
+    .icon {
+        margin-right: 1rem;
+        font-size: 1.3rem;
+        color: #707070;
+    }
+
+
+    .sidebar-a:hover .icon,
+    .sidebar-a:hover {
+
+        color: #fff;
+    }
+
+    /* ================ */
+    .ovel {
+        background-color: rgb(243, 243, 243);
+        padding: 5px 10px;
+        border-radius: 1rem;
+    }
+ 
+    .proimg {
+        width: 40px;
+        height: 40px;
+        border-radius: 25rem;
+
+    }
+
+    .card-text {
+        font-size: 0.9em;
+        color: #555;
+    }
+
+    .text-wrap {
+        line-height: 1em;
+    }
+</style>
+
+<body class="bg-light">
+    <!-- Bootstrap 5 navbar  -->
+    <nav class="navbar navbar-expand-sm navbar-light bg-white fixed-top">
+        <div class="container-fluid">
+
+            <div class=" d-flex  justify-content-center align-items-center">
+                <i class=" btn bx bx-menu fs-1" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"></i>
+                <a class="navbar-brand logo-name" href="#"> Madhawa</a>
+
+                <ul class="nav-ul">
+                    <li class="nav-li">
+                        <a class="nav-a" href="">
+                            <i class="bx bx-home-alt icon "></i>
+                            <!-- <span class="sp1">Dashboard</span> -->
+                        </a>
+                    </li>
+                    <li class="nav-li">
+                        <a class="nav-a" href="">
+                            <i class="bx bx-heart icon"></i>
+                            <!-- <span class="sp1">Dashboard</span> -->
+                        </a>
+                    </li>
+                    <li class="nav-li">
+                        <a class="nav-a" href="">
+                            <i class="bx bx-message-rounded icon"></i>
+                            <!-- <span class="sp1">Dashboard</span> -->
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+
+
+
+            <!-- Right elements -->
+            <div class="d-flex align-items-center">
+
+                <div class="d-flex">
+
+                    <i class='bx bx-message-square-dots search-icon mx-2'></i>
+
+                    <i class="bx bx-search-alt search-icon" id="searchIcon"></i>
+                    <div class="search-box">
+                        <i class="bx bx-search-alt search-icon"></i>
+                        <input class="search-box-input" type="text" placeholder="Search here..." />
+                    </div>
+                </div>
+
+
+                <!-- Avatar -->
+                <div class="dropdown ">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle" height="30"
+                            alt="Black and White Portrait of a Man" loading="lazy" />
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end " aria-labelledby="navbarDarkDropdownMenuLink">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Right elements -->
+
+        </div>
+    </nav>
+
+    <div class="offcanvas offcanvas-start sidebar" tabindex="-1" id="offcanvas" data-bs-keyboard="false"
+        data-bs-backdrop="false">
+        <div class="d-flex  align-items-center ">
+            <i class=" btn bx bx-menu fs-1" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"></i>
+            <span class="logo-name" href="#"> Madhawa</span>
+        </div>
+
+
+        <!-- Bootstrap 5 sidebar  -->
+        <div class="sidebar-content">
+            <ul class="sidebar-ul">
+                <li class="sidebar-li">
+                    <a href="#" class="sidebar-a">
+                        <i class="bx bx-home-alt icon"></i>
+                        <span class=" ">Dashboard</span>
+                    </a>
+                </li>
+                <li class="sidebar-li">
+                    <a href="#" class="sidebar-a">
+                        <i class="bx bx-bar-chart-alt-2 icon"></i>
+                        <span class=" ">Revenue</span>
+                    </a>
+                </li>
+                <li class="sidebar-li">
+                    <a href="#" class="sidebar-a">
+                        <i class="bx bx-bell icon"></i>
+                        <span class=" ">Notifications</span>
+                    </a>
+                </li>
+                <li class="sidebar-li">
+                    <a href="#" class="sidebar-a">
+                        <i class="bx bx-message-rounded icon"></i>
+                        <span class=" ">Messages</span>
+                    </a>
+                </li>
+                <li class="sidebar-li">
+                    <a href="#" class="sidebar-a">
+                        <i class="bx bx-pie-chart-alt-2 icon"></i>
+                        <span class=" ">Analytics</span>
+                    </a>
+                </li>
+                <li class="sidebar-li">
+                    <a href="#" class="sidebar-a">
+                        <i class="bx bx-heart icon"></i>
+                        <span class=" ">Likes</span>
+                    </a>
+                </li>
+                <li class="sidebar-li">
+                    <a href="#" class="sidebar-a">
+                        <i class="bx bx-folder-open icon"></i>
+                        <span class=" ">Files</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="bottom-cotent">
+                <li class="sidebar-li">
+                    <a href="#" class="sidebar-a">
+                        <i class="bx bx-cog icon"></i>
+                        <span class=" ">Settings</span>
+                    </a>
+                </li>
+                <li class="sidebar-li">
+                    <a href="#" class="sidebar-a">
+                        <i class="bx bx-log-out icon"></i>
+                        <span class=" ">Logout</span>
+                    </a>
+                </li>
+            </div>
+        </div>
+
+    </div>
+
+    <section class="py-3 px-2 px-lg-4 bg-light " style="margin-top: 100px;">
+
+        <div class="row gx-3 gy-3" data-masonry='{"percentPosition": true }'>
+
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <div class="card shadow-sm">
+                    <img src="Image/profile (2).jpg" class="card-img-top" alt="...">
+                    <div class="card-body py-0">
+                        <div class="border-bottom py-2 mb-2 ">
+                            <div class="row align-items-center" style="line-height: 80%;">
+                                <div class="col-9 d-flex">
+                                    <img src="Image/profile.jpg" class=" proimg " alt="...">
+                                    <div class="mx-3">
+                                        <h6 class="m-0 p-0">madhawa <i class="bi bi-award-fill"></i></h6>
+                                        <p class=" m-0 p-0 text-muted small"> <small> asasdasd </small> </p>
+                                    </div>
+                                </div>
+                                <div class="col-3 text-end small ovel">
+                                    <!-- <i class="bi bi-heart fa-lg"></i> -->
+                                    <i class="bi bi-heart-fill fa-lg text-danger"></i>
+                                    <small> 10k </small>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <h5 class="card-title ">Card title Lorem ipsum dolor, Fugit, odio.</h5>
+                        <p class="card-text ">This is a wider card with supporting text below as a natural lead-in to
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui, tenetur! Lorem ipsum dolor
+                            sit amet consectetur adipisic Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                            Impedit in beatae ipsum dicta iusto fugiat architecto at. Fugiat saepe quidem vel animi
+                            voluptates nobis amet est aliquam blanditiis. Quos magni temporibus corrupti rerum totam
+                            voluptatum vero, nobis ex ipsam aspernatur odit consectetur reiciendis facere cum officiis
+                            ab nam accusantium dolore a amet magnam alias ratione? Totam modi assumenda similique nobis,
+                            magni </p>
+
+                        <div class="d-flex justify-content-between pb-0">
+                            <p class="card-text"> <small class="text-muted ovel">Last </small></p>
+                            <p class="card-text"> <small class="text-muted ovel">updated </small></p>
+                            <p class="card-text"> <small class="text-muted ovel">3 mins ago</small></p>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- ============ -->
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <div class="card shadow-sm">
+                    <img src="Image/profile (2).jpg" class="card-img-top" alt="...">
+                    <div class="card-body py-0">
+                        <div class="border-bottom py-2 mb-2 ">
+                            <div class="row align-items-center" style="line-height: 80%;">
+                                <div class="col-9 d-flex">
+                                    <img src="Image/profile.jpg" class=" proimg " alt="...">
+                                    <div class="mx-3">
+                                        <h6 class="m-0 p-0">madhawa <i class="bi bi-award-fill"></i></h6>
+                                        <p class=" m-0 p-0 text-muted small"> <small> asasdasd </small> </p>
+                                    </div>
+                                </div>
+                                <div class="col-3 text-end small ovel">
+                                    <!-- <i class="bi bi-heart fa-lg"></i> -->
+                                    <i class="bi bi-heart-fill fa-lg text-danger"></i>
+                                    <small> 10k </small>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <h5 class="card-title ">Card title Lorem ipsum dolor, Fugit, odio.</h5>
+                        <p class="card-text ">This is a wider card with supporting text below as a natural lead-in to
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui, tenetur! Lorem ipsum dolor
+                            sit amet consectetur adipisic Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                            Impedit in beatae ipsum dicta iusto fugiat architecto at. Fugiat saepe quidem vel animi
+                            voluptates nobis amet est aliquam blanditiis. Quos magni temporibus corrupti rerum totam
+                            voluptatum vero, nobis ex ipsam aspernatur odit consectetur reiciendis facere cum officiis
+                            ab nam accusantium dolore a amet magnam alias ratione? Totam modi assumenda similique nobis,
+                            magni </p>
+
+                        <div class="d-flex justify-content-between pb-0">
+                            <p class="card-text"> <small class="text-muted ovel">Last </small></p>
+                            <p class="card-text"> <small class="text-muted ovel">updated </small></p>
+                            <p class="card-text"> <small class="text-muted ovel">3 mins ago</small></p>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- ============ -->
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <div class="card shadow-sm">
+                    <img src="Image/profile (2).jpg" class="card-img-top" alt="...">
+                    <div class="card-body py-0">
+                        <div class="border-bottom py-2 mb-2 ">
+                            <div class="row align-items-center" style="line-height: 80%;">
+                                <div class="col-9 d-flex">
+                                    <img src="Image/profile.jpg" class=" proimg " alt="...">
+                                    <div class="mx-3">
+                                        <h6 class="m-0 p-0">madhawa <i class="bi bi-award-fill"></i></h6>
+                                        <p class=" m-0 p-0 text-muted small"> <small> asasdasd </small> </p>
+                                    </div>
+                                </div>
+                                <div class="col-3 text-end small ovel">
+                                    <!-- <i class="bi bi-heart fa-lg"></i> -->
+                                    <i class="bi bi-heart-fill fa-lg text-danger"></i>
+                                    <small> 10k </small>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <h5 class="card-title ">Card title Lorem ipsum dolor, Fugit, odio.</h5>
+                        <p class="card-text ">This is a wider card with supporting text below as a natural lead-in to
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui, tenetur! Lorem ipsum dolor
+                            sit amet consectetur adipisic Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                            Impedit in beatae ipsum dicta iusto fugiat architecto at. Fugiat saepe quidem vel animi
+                            voluptates nobis amet est aliquam blanditiis. Quos magni temporibus corrupti rerum totam
+                            voluptatum vero, nobis ex ipsam aspernatur odit consectetur reiciendis facere cum officiis
+                            ab nam accusantium dolore a amet magnam alias ratione? Totam modi assumenda similique nobis,
+                            magni </p>
+
+                        <div class="d-flex justify-content-between pb-0">
+                            <p class="card-text"> <small class="text-muted ovel">Last </small></p>
+                            <p class="card-text"> <small class="text-muted ovel">updated </small></p>
+                            <p class="card-text"> <small class="text-muted ovel">3 mins ago</small></p>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- ============ -->
+            
+
+            
+        </div>
+
+
+    </section>
+
+
+    
+
+
+    <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
+	integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous"
+	async></script>
+
+
+    <!-- Bootstrap 5 js  -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <script>
+
+        const navBar = document.querySelector("nav");
+        console.log(navBar);
+
+        searchIcon = document.querySelector("#searchIcon")
+
+        searchIcon.addEventListener("click", () => {
+            navBar.classList.toggle("openSearch");
+            navBar.classList.remove("openNav");
+            if (navBar.classList.contains("openSearch")) {
+                return searchIcon.classList.replace("bx-search-alt", "bx-x");
+            }
+            searchIcon.classList.replace("bx-x", "bx-search-alt");
+        });
+
+
+    </script>
+</body>
+
+</html>
